@@ -1,0 +1,265 @@
+/* ============================================================
+   DIGITAL CLOCK — STYLE SHEET
+   A modern, futuristic dark theme with neon glow & glassmorphism
+   ============================================================ */
+
+
+/* ===== RESET ===== */
+/* Remove browser defaults so everything starts from zero */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* ===== BODY / BACKGROUND ===== */
+/* 
+   - Full viewport height
+   - Dark blue → purple gradient
+   - Flexbox to center the clock card
+*/
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Orbitron', sans-serif;
+    overflow: hidden;
+
+    /* Rich dark gradient background */
+    background: linear-gradient(135deg, #020024 0%, #090979 40%, #1a0038 100%);
+}
+
+
+/* ===== PARTICLE CANVAS ===== */
+/* The floating dots animation sits behind everything */
+#particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    /* Behind the clock card */
+    pointer-events: none;
+    /* Clicks pass through */
+}
+
+
+/* ===== CLOCK CONTAINER ===== */
+/* Provides a stacking context so the card sits above the canvas */
+.clock-container {
+    position: relative;
+    z-index: 1;
+    padding: 20px;
+}
+
+
+/* ===== GLASSMORPHISM CARD ===== */
+/* 
+   The frosted-glass card that holds the clock.
+   Key techniques: semi-transparent bg, backdrop-filter blur, subtle border.
+*/
+.clock-card {
+    text-align: center;
+    padding: 50px 65px;
+
+    /* Frosted glass background */
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    /* Rounded corners */
+    border-radius: 28px;
+
+    /* Glowing border */
+    border: 1px solid rgba(0, 255, 255, 0.12);
+
+    /* Layered shadows for depth */
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.5),
+        0 0 60px rgba(0, 255, 255, 0.05),
+        inset 0 0 80px rgba(0, 0, 0, 0.2);
+
+    /* Smooth transition for the hover glow effect */
+    transition: box-shadow 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
+}
+
+/* HOVER GLOW — card lights up when the user hovers over it */
+.clock-card:hover {
+    border-color: rgba(0, 255, 255, 0.3);
+    transform: translateY(-4px);
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.6),
+        0 0 80px rgba(0, 255, 255, 0.12),
+        0 0 120px rgba(0, 255, 255, 0.06),
+        inset 0 0 80px rgba(0, 0, 0, 0.2);
+}
+
+
+/* ===== LABEL ===== */
+/* The small "CURRENT TIME" text above the digits */
+.label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 5px;
+    color: rgba(0, 255, 255, 0.35);
+    margin-bottom: 24px;
+}
+
+
+/* ===== TIME DISPLAY ===== */
+/* Wrapper that holds the digit segments, colons, and AM/PM */
+.time-wrapper {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 4px;
+}
+
+/* Each HH, MM, SS block */
+.time-segment {
+    font-size: 5rem;
+    font-weight: 900;
+    color: #00ffff;
+    min-width: 2.6ch;
+    /* Prevents layout shift when digits change */
+    display: inline-block;
+    letter-spacing: 4px;
+
+    /* Neon glow — multiple layered text-shadows */
+    text-shadow:
+        0 0 8px rgba(0, 255, 255, 0.9),
+        0 0 20px rgba(0, 255, 255, 0.6),
+        0 0 40px rgba(0, 255, 255, 0.35),
+        0 0 80px rgba(0, 255, 255, 0.15);
+
+    /* Smooth transition for the "pop" animation on digit change */
+    transition: transform 0.25s ease, text-shadow 0.25s ease;
+}
+
+/* Animation class — added briefly when a digit changes */
+.time-segment.pop {
+    transform: scale(1.08);
+    text-shadow:
+        0 0 12px rgba(0, 255, 255, 1),
+        0 0 30px rgba(0, 255, 255, 0.8),
+        0 0 60px rgba(0, 255, 255, 0.5),
+        0 0 100px rgba(0, 255, 255, 0.25);
+}
+
+/* The ":" separators between HH, MM, and SS */
+.colon {
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: rgba(0, 255, 255, 0.55);
+    text-shadow:
+        0 0 8px rgba(0, 255, 255, 0.5),
+        0 0 20px rgba(0, 255, 255, 0.3);
+
+    /* Blink animation — fades in and out */
+    animation: blink 1s ease-in-out infinite;
+}
+
+/* Blinking keyframes for the colons */
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+/* AM / PM badge */
+.ampm {
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: rgba(0, 255, 255, 0.5);
+    margin-left: 12px;
+    align-self: center;
+}
+
+
+/* ===== DIVIDER ===== */
+/* A thin horizontal line between the time and the date */
+.divider {
+    width: 60%;
+    height: 1px;
+    margin: 28px auto 22px;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(0, 255, 255, 0.25),
+            transparent);
+}
+
+
+/* ===== DATE TEXT ===== */
+/* Day & date shown below the divider */
+.date-text {
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 3px;
+    color: rgba(180, 200, 255, 0.5);
+}
+
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Tablets and smaller laptops */
+@media (max-width: 768px) {
+    .time-segment {
+        font-size: 3.2rem;
+    }
+
+    .colon {
+        font-size: 2.8rem;
+    }
+
+    .clock-card {
+        padding: 40px 30px;
+    }
+
+    .date-text {
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+    }
+}
+
+/* Small mobile screens */
+@media (max-width: 420px) {
+    .time-segment {
+        font-size: 2.2rem;
+        letter-spacing: 2px;
+        min-width: 2.4ch;
+    }
+
+    .colon {
+        font-size: 1.8rem;
+    }
+
+    .clock-card {
+        padding: 30px 18px;
+        border-radius: 20px;
+    }
+
+    .ampm {
+        font-size: 0.75rem;
+        margin-left: 8px;
+    }
+
+    .label {
+        font-size: 0.55rem;
+        letter-spacing: 3px;
+    }
+
+    .date-text {
+        font-size: 0.6rem;
+        letter-spacing: 1px;
+    }
+}

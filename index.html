@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Character encoding for proper text rendering -->
+    <meta charset="UTF-8" />
+
+    <!-- Makes the page responsive on all devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Page title shown in the browser tab -->
+    <title>Digital Clock</title>
+
+    <!-- SEO meta description -->
+    <meta name="description"
+        content="A modern real-time digital clock with neon glow, floating particles, and glassmorphism design." />
+
+    <!-- Google Font: Orbitron — a futuristic digital-style font -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet" />
+
+    <!-- Link to external CSS file for styling -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <!-- Canvas element for animated floating particles in the background -->
+    <canvas id="particles"></canvas>
+
+    <!-- Main container — centers the clock card on the page -->
+    <div class="clock-container">
+
+        <!-- Glassmorphism card that holds all clock content -->
+        <div class="clock-card" id="clockCard">
+
+            <!-- Small label above the time -->
+            <p class="label">CURRENT TIME</p>
+
+            <!-- The large time display (HH:MM:SS) -->
+            <div class="time-wrapper">
+                <!-- Each digit group is in its own span for animation -->
+                <span class="time-segment" id="hours">00</span>
+                <span class="colon" id="colon1">:</span>
+                <span class="time-segment" id="minutes">00</span>
+                <span class="colon" id="colon2">:</span>
+                <span class="time-segment" id="seconds">00</span>
+
+                <!-- AM / PM badge next to the time -->
+                <span class="ampm" id="ampm">AM</span>
+            </div>
+
+            <!-- Divider line between time and date -->
+            <div class="divider"></div>
+
+            <!-- Day and date display -->
+            <p class="date-text" id="dateText">Thursday, 05 March 2026</p>
+
+        </div>
+    </div>
+
+    <!-- Link to external JavaScript file -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
